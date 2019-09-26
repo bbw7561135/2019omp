@@ -30,36 +30,7 @@ int main()
 }
 
 
-//#include <iostream>
-//#include <omp.h>
-//using namespace std;
-//
-//
-//
-//
-//int main()
-//{
-//
-//    int l = 4;
-//    int m = 4;
-//    int n = 2;
-//
-//    int tid,i,j,k,counter;
-//    omp_set_num_threads(3);
-//    counter = 0;
-//
-//    #pragma omp parallel for collapse(2) private(i,j,k,tid) firstprivate(counter)
-//    for(i=1;i<=l;i++)
-//        for(j=1;j<=m;j++)
-//            for(k=1;k<=n;k++)
-//                {
-//                    tid = omp_get_thread_num();
-//                    counter = counter + 1;
-//                    cout << "tid = " << tid <<", counter = " << counter << ", i = " << i << ", j = " << j << ", k = " << k << endl;
-//                }
-//
-//    return 0;
-//}
+
 //tid = 0, counter = 1, i = 1, j = 1, k = 1
 //tid = 2, counter = 1, i = 3, j = 4, k = 1
 //tid = 2, counter = 2, i = 3, j = 4, k = 2
