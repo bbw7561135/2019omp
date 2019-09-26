@@ -50,3 +50,49 @@ int main()
 //尽量不要用数组
 //(2)
 //sum1是shared变量，为了保证cache一致性，编译器（可能）会采取一些额外操作
+
+
+#include <iostream>
+#include <omp.h>
+using namespace std;
+
+
+
+
+
+int main()
+{
+
+
+    long int numsteps = 1000000000;
+    int i;
+    double x,pi,step,sum;
+    double stime,etime,utime;
+    stime = omp_get_wtime();
+    omp_set_num_threads(4);
+    step = 1.0/double(numsteps);
+    pi=0.0;
+    sum = 0.0;
+    #pragma omp parallel private(x,i) default(shared) reduction(+:sum)
+    {
+
+        #pragma omp for
+        for(i=0;i<numsteps;i++)
+        {
+            x = (double(i)+0.5)*step;
+            sum = sum + 4.0/(1.0+x*x);
+            //sum[tid] = sum[tid] + 4.0/(1.0+x*x);
+        }
+
+    }
+
+    pi = sum*step;
+    etime = omp_get_wtime();
+    utime = etime -stime;
+    cout << "use time " << utime << endl;
+    cout << "pi is " << pi << endl;
+    return 0;
+}
+
+
+
