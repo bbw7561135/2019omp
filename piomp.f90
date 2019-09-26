@@ -26,7 +26,7 @@ program pi_parallel
     !$omp do
     do i=tid,num_steps-1
         x=(dble(i)+0.5)*step
-        sum1(tid)=sum1(tid)+4.0/(1.0+x*x)
+        sum1(tid)=sum1(tid)+4.0/(1.0+x*x) //比串行慢的原因 数组
     end do
     !$omp end do
     !$omp end parallel
