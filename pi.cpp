@@ -96,3 +96,42 @@ int main()
 
 
 
+#include <iostream>
+#include <omp.h>
+using namespace std;
+
+
+//数组操作不要太过分 并行还是能很快提高速度的 比如下面这个程序 四核1.9s 单核5.6s
+
+
+int main()
+{
+
+
+    int k = 50000;
+    int i,j;
+    double a[k],b[k];
+    double stime,etime,utime;
+    for(i=0;i<k;i++)
+    {
+        a[i]=1.0;
+        b[i]=2.0;
+    }
+    stime = omp_get_wtime();
+    omp_set_num_threads(4);
+    #pragma omp parallel for private(i,j) default(none) shared(a,b,k)
+    for(j=0;j<k;j++)
+    for(i=0;i<k;i++)
+
+    {
+        b[i] = a[i]*b[i]*a[i];
+    }
+
+    etime = omp_get_wtime();
+    utime = etime - stime;
+    cout << utime << endl;
+    return 0;
+}
+
+
+
